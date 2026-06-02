@@ -1,5 +1,5 @@
 # LinkedIn AI Comment Assistant
-
+ 
 A powerful Chrome extension that generates precise, ICP-targeted, voice-matched LinkedIn comments using multiple AI models (Claude, Gemini, Groq, etc.).
 
 ## Features

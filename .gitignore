@@ -1,0 +1,35 @@
+# Environment Variables
+config.env
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Mac OS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Build output
+dist/
+build/
+*.zip
+*.crx

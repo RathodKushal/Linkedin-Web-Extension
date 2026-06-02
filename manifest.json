@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "LinkedIn AI Comment Assistant",
+  "version": "2.0.0",
+  "description": "Generate precise, ICP-targeted, voice-matched LinkedIn comments using Claude AI.",
+  "permissions": [
+    "storage",
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://*.linkedin.com/*",
+    "https://*.licdn.com/*",
+    "https://api.anthropic.com/*",
+    "https://generativelanguage.googleapis.com/*",
+    "https://api.groq.com/*",
+    "https://api.telegram.org/*",
+    "https://discord.com/api/webhooks/*"
+  ],
+  "action": {
+    "default_popup": "options.html",
+    "default_icon": {
+      "16": "icon-16.png",
+      "48": "icon-48.png",
+      "128": "icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "icon-16.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_ui": {
+    "page": "popup.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.linkedin.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["config.env"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

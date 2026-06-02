@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn AI Comment Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header Row -->
+    <div class="header-row">
+      <div class="toggle-group-header">
+        <button class="ctx-btn active" id="btnComment">Comment on their post</button>
+        <button class="ctx-btn" id="btnReply">Reply on your post</button>
+      </div>
+      <button class="settings-btn" id="openSettingsBtn" title="Open Settings">⚙</button>
+    </div>
+
+    <!-- Voice Signature Box -->
+    <div class="voice-box">
+      <div class="voice-label">✦ Your voice signature (auto-applied)</div>
+      <div class="voice-preview" id="voicePreview">"No style samples yet — post comments on LinkedIn to build your voice."</div>
+    </div>
+
+    <!-- Post Content -->
+    <div class="form-group">
+      <label class="field-label">Paste their post or key lines</label>
+      <textarea id="postContent" rows="4" placeholder="Paste 3–5 lines from their LinkedIn post or article..."></textarea>
+    </div>
+
+
+
+
+    <!-- Exam domains -->
+    <div class="form-group">
+      <label class="field-label">Relevant exam domains to draw from</label>
+      <div class="tag-cloud" id="domainTags">
+        <button class="tag tag-domain active" data-value="UCAT">UCAT</button>
+        <button class="tag tag-domain active" data-value="USMLE">USMLE</button>
+        <button class="tag tag-domain" data-value="GAMSAT">GAMSAT</button>
+        <button class="tag tag-domain" data-value="HPAT">HPAT</button>
+        <button class="tag tag-domain" data-value="ACER">ACER</button>
+        <button class="tag tag-domain" data-value="SAT">SAT</button>
+        <button class="tag tag-domain" data-value="ATAR">ATAR</button>
+        <button class="tag tag-domain" data-value="GATE">GATE</button>
+        <button class="tag tag-domain" data-value="Pre-clinical">Pre-clinical</button>
+      </div>
+    </div>
+
+    <!-- Comment mode -->
+    <div class="form-group">
+      <label class="field-label">Comment mode</label>
+      <div class="mode-grid">
+        <label class="mode-card">
+          <input type="radio" name="commentMode" value="tone_1" checked>
+          <div class="mode-content">
+            <div class="mode-title">Agree → reframe → sharp question</div>
+            <div class="mode-desc">Your strongest pattern. Elevates their point, adds market truth, ends with a question they can't ignore.</div>
+          </div>
+        </label>
+        <label class="mode-card">
+          <input type="radio" name="commentMode" value="tone_2">
+          <div class="mode-content">
+            <div class="mode-title">Agree → bold counter → invite take</div>
+            <div class="mode-desc">Validate first, then challenge a hidden assumption. Ask what they'd do differently.</div>
+          </div>
+        </label>
+        <label class="mode-card">
+          <input type="radio" name="commentMode" value="tone_3">
+          <div class="mode-content">
+            <div class="mode-title">Pattern from 20+ projects</div>
+            <div class="mode-desc">Drop a lived observation from real exam prep builds. Creates authority, curiosity, and gives a company example.</div>
+          </div>
+        </label>
+        <label class="mode-card">
+          <input type="radio" name="commentMode" value="tone_4">
+          <div class="mode-content">
+            <div class="mode-title">Cryptic hook → question</div>
+            <div class="mode-desc">Open with a counterintuitive truth. Let the question do the lead gen work.</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Specific insight -->
+    <div class="form-group">
+      <label class="field-label">Specific insight or stat to weave in (optional)</label>
+      <input type="text" id="specificInsight" placeholder="e.g. most platforms solve question volume, not student anxiety before exam day">
+    </div>
+
+    <!-- Engagement Hook Option -->
+    <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+      <label class="field-label" for="addHook" style="margin-bottom: 0; cursor: pointer;">End comment with a question to drive replies</label>
+      <label class="switch" style="transform: scale(0.85); margin: 0;">
+        <input type="checkbox" id="addHook" checked>
+        <span class="slider round"></span>
+      </label>
+    </div>
+
+    <!-- Generate Button -->
+    <button class="generate-btn" id="generateBtn">✦&nbsp;&nbsp;Generate 3 variations in your voice</button>
+
+    <!-- Results Area -->
+    <div id="resultsArea" class="results-area hidden">
+      <div class="results-label">Click a variation to copy it:</div>
+      <div id="variationsList" class="variations-list"></div>
+    </div>
+
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

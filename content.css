@@ -1,0 +1,596 @@
+/* CSS for LinkedIn AI Comment Assistant Injected Elements */
+
+/* 0. AI Action Row — flex container holding the smile button + regenerate button */
+.ln-ai-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 4px 4px 2px;
+  box-sizing: border-box;
+  gap: 8px;
+}
+
+/* 1. Smile Trigger Button */
+.ln-ai-trigger-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
+  color: #38bdf8;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-left: 8px;
+  position: relative;
+}
+
+.ln-ai-trigger-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  border-color: #38bdf8;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5), 0 4px 8px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #38bdf8 0%, #3b82f6 100%);
+}
+
+.ln-ai-trigger-btn:active {
+  transform: translateY(0) scale(1);
+}
+
+.ln-ai-trigger-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  transition: transform 0.25s ease;
+}
+
+.ln-ai-trigger-btn:hover svg {
+  transform: rotate(15deg);
+}
+
+/* Tooltip */
+.ln-ai-trigger-btn::after {
+  content: "AI Comment Suggest";
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background-color: #0f172a;
+  color: #f8fafc;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  border: 1px solid #334155;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.ln-ai-trigger-btn:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 1.5 Reply Trigger Button */
+.ln-ai-reply-trigger-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  /* Purple accent */
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
+  color: #ef4444;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-left: 8px;
+  position: relative;
+  font-size: 16px;
+  /* For the emoji */
+}
+
+.ln-ai-reply-trigger-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  border-color: #ef4444;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.5), 0 4px 8px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #991b1b 0%, #f97316 100%);
+}
+
+.ln-ai-reply-trigger-btn:active {
+  transform: translateY(0) scale(1);
+}
+
+/* Tooltip for Reply Button */
+.ln-ai-reply-trigger-btn::after {
+  content: "AI Reply Suggest";
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background-color: #0f172a;
+  color: #f8fafc;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  border: 1px solid #334155;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.ln-ai-reply-trigger-btn:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 2. Injected Suggestion Panel Container */
+.ln-ai-panel-wrapper {
+  margin: 12px 0;
+  width: 100%;
+  display: none;
+  /* Managed by JS */
+  animation: ln-ai-fade-in 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes ln-ai-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ln-ai-suggestions-panel {
+  background-color: #0d0d1a;
+  border: 1.5px solid rgb(249, 115, 22);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+  font-family: 'Plus Jakarta Sans', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #f0f0ff;
+  backdrop-filter: blur(8px);
+}
+
+/* Header of suggestions panel */
+.ln-ai-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ln-ai-header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fed7aa;
+  /* Soft purple */
+}
+
+.ln-ai-header-title svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.ln-ai-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 2px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.ln-ai-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+/* Suggestion Card Row styling */
+.ln-ai-suggestions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ln-ai-suggestion-card {
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background-color: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  backdrop-filter: blur(6px);
+}
+
+.ln-ai-suggestion-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #ef4444, #f59e0b);
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.ln-ai-suggestion-card:hover {
+  border-color: rgba(249, 115, 22, 0.5);
+  background-color: rgba(249, 115, 22, 0.1);
+  transform: translateX(3px);
+  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.2);
+}
+
+.ln-ai-suggestion-card:hover::before {
+  opacity: 1;
+}
+
+.ln-ai-suggestion-text {
+  font-size: 13px;
+  line-height: 1.45;
+  color: #f0f0ff;
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+
+/* Card Actions / Info footer */
+.ln-ai-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.ln-ai-tone-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.ln-ai-tone-label.insightful {
+  background-color: rgba(14, 165, 233, 0.2);
+  color: #38bdf8;
+}
+
+.ln-ai-tone-label.appreciative {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+}
+
+.ln-ai-tone-label.inquisitive {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #f97316;
+}
+
+.ln-ai-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ln-ai-action-btn {
+  background: none;
+  border: 1px solid rgba(249, 115, 22, 0.6);
+  color: #fed7aa;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ln-ai-action-btn:hover {
+  background-color: rgba(249, 115, 22, 0.2);
+  color: #ffffff;
+  border-color: #ef4444;
+  transform: scale(1.02);
+}
+
+.ln-ai-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ln-panel-muted, #666666);
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.ln-ai-icon-btn:hover {
+  background-color: var(--ln-panel-hover, rgba(0, 0, 0, 0.05));
+  color: var(--ln-panel-text, #191919);
+}
+
+.ln-ai-icon-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* Skeleton Loading Screens */
+.ln-ai-skeleton-card {
+  border: 1px solid var(--ln-card-border, #e0e0e0);
+  border-radius: 8px;
+  padding: 12px;
+  background-color: var(--ln-card-bg, #f9fafb);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ln-ai-shimmer {
+  background: linear-gradient(90deg,
+      var(--ln-shimmer-base, #f3f4f6) 25%,
+      var(--ln-shimmer-highlight, #e5e7eb) 50%,
+      var(--ln-shimmer-base, #f3f4f6) 75%);
+  background-size: 200% 100%;
+  animation: ln-ai-loading-shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.theme--dark .ln-ai-suggestions-panel {
+  --ln-shimmer-base: #252b31;
+  --ln-shimmer-highlight: #30373e;
+}
+
+@keyframes ln-ai-loading-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.ln-ai-shimmer-line-long {
+  height: 14px;
+  width: 90%;
+}
+
+.ln-ai-shimmer-line-med {
+  height: 14px;
+  width: 75%;
+}
+
+.ln-ai-shimmer-line-short {
+  height: 12px;
+  width: 30%;
+  margin-top: 4px;
+}
+
+/* Setup API warning screen */
+.ln-ai-warning-box {
+  padding: 14px;
+  border-radius: 8px;
+  background-color: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  text-align: center;
+}
+
+.ln-ai-warning-title {
+  color: #d97706;
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.ln-ai-warning-text {
+  color: var(--ln-panel-text, #191919);
+  font-size: 12px;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.ln-ai-warning-btn {
+  background-color: #d97706;
+  color: #ffffff;
+  border: none;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.ln-ai-warning-btn:hover {
+  background-color: #b45309;
+}
+
+/* Creator Queue (Bulk Replier) UI */
+.ln-ai-bulk-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+  padding-right: 16px;
+  width: 100%;
+}
+
+.ln-ai-bulk-btn {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s ease;
+}
+
+.ln-ai-bulk-btn:hover {
+  border-color: #38bdf8;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.ln-ai-bulk-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ln-ai-ghost-draft {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background-color: var(--ln-card-bg, #f3f8fc);
+  border-left: 3px solid #38bdf8;
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--ln-panel-text, #191919);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  white-space: pre-wrap;
+}
+
+.ln-ai-ghost-draft:hover {
+  background-color: var(--ln-card-hover-bg, #e0f2fe);
+}
+
+.ln-ai-ghost-draft::before {
+  content: "✨ Draft: ";
+  font-weight: 600;
+  color: #0284c7;
+}
+
+.theme--dark .ln-ai-ghost-draft::before {
+  color: #38bdf8;
+}
+
+.ln-ai-ghost-draft-applied {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ─── Regenerate Button ─────────────────────────────────────────────────── */
+.ln-ai-regen-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  /* pushes button to far right of the flex row */
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  color: #0f766e;
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  border: 1.5px solid #4ade80;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 4px rgba(74, 222, 128, 0.2);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ln-ai-regen-btn:hover {
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  color: #fff;
+  border-color: #22c55e;
+  box-shadow: 0 3px 10px rgba(34, 197, 94, 0.4);
+  transform: translateY(-1px);
+}
+
+.ln-ai-regen-btn:active {
+  transform: translateY(0);
+}
+
+.ln-ai-regen-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.theme--dark .ln-ai-regen-btn {
+  background: linear-gradient(135deg, rgba(20, 83, 45, 0.8), rgba(22, 101, 52, 0.8));
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.4);
+}
+
+.theme--dark .ln-ai-regen-btn:hover {
+  background: linear-gradient(135deg, #166534, #15803d);
+  color: #fff;
+}
+/* =========================================
+   Theme Overrides (Ice Mode)
+   ========================================= */
+[data-theme="ice"] .ln-ai-suggestions-panel {
+  border-color: #00E5FF;
+}
+[data-theme="ice"] .ln-ai-header-title {
+  color: #00E5FF;
+}
+[data-theme="ice"] .ln-ai-suggestion-card::before {
+  background: linear-gradient(180deg, #0088FF, #00E5FF);
+}
+[data-theme="ice"] .ln-ai-suggestion-card:hover {
+  border-color: rgba(0, 229, 255, 0.6);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.15);
+}
+[data-theme="ice"] .ln-ai-suggestion-text strong {
+  color: #00E5FF;
+}
+[data-theme="ice"] .ln-ai-trigger-btn,
+[data-theme="ice"] .ln-ai-reply-trigger-btn {
+  border-color: rgba(0, 229, 255, 0.3);
+  color: #00E5FF;
+}
+[data-theme="ice"] .ln-ai-trigger-btn:hover,
+[data-theme="ice"] .ln-ai-reply-trigger-btn:hover {
+  border-color: #00E5FF;
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.5), 0 4px 8px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #0088FF 0%, #00E5FF 100%);
+  color: #fff;
+}

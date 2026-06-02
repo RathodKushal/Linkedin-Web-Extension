@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn AI Comment Assistant — Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="options.css">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-area">
+        <div class="logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-3.5-9c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm7 0c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8s-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm-5 5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
+          </svg>
+        </div>
+        <h1>LinkedIn AI Comment Assistant</h1>
+      </div>
+    </header>
+
+    <main>
+      <div class="tabs-container">
+        <button class="tab-btn active" data-target="settings-tab">Settings</button>
+        <button class="tab-btn" data-target="analytics-tab">Analytics</button>
+        <button class="tab-btn" data-target="style-tab">My Style</button>
+        <button class="tab-btn" data-target="details-tab">Details</button>
+      </div>
+
+      <!-- Settings Tab -->
+      <div id="settings-tab" class="tab-content active">
+        <div class="card">
+          <div class="form-group">
+            <label for="defaultTone">Comment Tone</label>
+            <select id="defaultTone">
+              <option value="tone_1">Agree → reframe → sharp question</option>
+              <option value="tone_2">Agree → bold counter → invite take</option>
+              <option value="tone_3">Pattern from 20+ projects (+ company example)</option>
+              <option value="tone_4">Cryptic hook → question</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="commentLength">Comment Length</label>
+            <select id="commentLength">
+              <option value="short">Short (Concise, 1 sentence)</option>
+              <option value="medium">Medium (Balanced, 2-3 sentences)</option>
+              <option value="long">Long (Detailed, 3-5 sentences)</option>
+            </select>
+          </div>
+
+
+          <div class="form-group toggle-group">
+            <div class="toggle-label-wrapper">
+              <label for="emojisEnabled">Include Emojis</label>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="emojisEnabled">
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+          <div class="form-group toggle-group">
+            <div class="toggle-label-wrapper">
+              <label for="addHook">End comment with a question to drive replies</label>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="addHook" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label for="stylePromptCount">Style Learning — Comments to Reference</label>
+            <select id="stylePromptCount">
+              <option value="5">5 comments (Fastest, less personal)</option>
+              <option value="10" selected>10 comments (Recommended)</option>
+              <option value="15">15 comments (More accurate)</option>
+              <option value="20">20 comments (Very detailed)</option>
+              <option value="30">30 comments (Maximum style depth)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="themeSelect">Visual Theme</label>
+            <select id="themeSelect">
+              <option value="fire">🔥 Fire Mode (Red/Orange)</option>
+              <option value="ice">❄️ Ice Mode (Cyan/Blue)</option>
+            </select>
+          </div>
+
+          <details class="advanced-settings">
+            <summary>Advanced Settings (Power Users)</summary>
+            <div class="form-group" style="margin-top: 12px;">
+              <label for="customPrompt">Custom System Instructions</label>
+              <textarea id="customPrompt" rows="4"
+                placeholder="e.g., Always start the comment with a rhetorical question..."></textarea>
+            </div>
+          </details>
+
+          <div class="button-group">
+            <button id="saveBtn" class="btn btn-primary">
+              <span>Save Settings</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Analytics Tab -->
+      <div id="analytics-tab" class="tab-content">
+        <div class="analytics-dashboard">
+          <div class="stat-card">
+            <div class="stat-icon">💬</div>
+            <div class="stat-value" id="stat-weekly">0</div>
+            <div class="stat-label">Comments This Week</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-value" id="stat-time">0h</div>
+            <div class="stat-label">Estimated Time Saved</div>
+          </div>
+          <div class="stat-card stat-card-wide">
+            <div class="stat-icon">✨</div>
+            <div class="stat-value tone-value" id="stat-tone">-</div>
+            <div class="stat-label">Most Used Tone</div>
+          </div>
+        </div>
+        <button id="resetAnalyticsBtn" class="btn" style="background-color: transparent; border: 1px solid var(--border); color: var(--text-secondary); width: 100%; margin-top: 24px;">
+          Reset Analytics Data
+        </button>
+      </div>
+
+      <!-- My Style Tab -->
+      <div id="style-tab" class="tab-content">
+        <div class="card" style="gap: 10px;">
+          <div class="form-group toggle-group">
+            <div class="toggle-label-wrapper">
+              <label for="styleEnabled">Style Learning</label>
+              <span class="help-text-inline">AI learns from your posted comments</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="styleEnabled" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+          <div class="style-progress-section">
+            <div class="style-progress-header">
+              <span class="style-progress-label">💡 Comments Learned</span>
+              <span class="style-count" id="styleCount">0 / 30</span>
+            </div>
+            <div class="style-progress-bar-track">
+              <div class="style-progress-bar-fill" id="styleProgressFill" style="width: 0%"></div>
+            </div>
+            <p class="style-hint" id="styleHint">Post a few comments on LinkedIn and the AI will start learning your style.</p>
+          </div>
+
+          <div id="voiceSignatureContainer" class="voice-signature-box hidden" style="display: none;">
+            <div class="voice-signature-header">
+              <span class="voice-signature-title">✨ Voice signature (auto-applied)</span>
+              <button id="regenerateSignatureBtn" class="btn-icon" title="Regenerate Voice Signature" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);">🔄</button>
+            </div>
+            <p id="voiceSignatureText" class="voice-signature-text"></p>
+            <div id="voiceSignatureLoader" class="voice-signature-loader hidden" style="display: none;">
+              <div class="shimmer-line" style="height: 12px; width: 90%; background: rgba(255,255,255,0.1); border-radius: 4px; margin-bottom: 6px; animation: pulse 1.5s infinite;"></div>
+              <div class="shimmer-line" style="height: 12px; width: 60%; background: rgba(255,255,255,0.1); border-radius: 4px; animation: pulse 1.5s infinite;"></div>
+            </div>
+          </div>
+
+          <div class="style-comments-section">
+            <div class="style-comments-header">
+              <span class="style-section-title">Your Saved Style Samples</span>
+            </div>
+            <div class="style-comments-list" id="styleCommentsList">
+              <div class="style-empty-state" id="styleEmptyState">
+                <div class="style-empty-icon">🧠</div>
+                <p>No style samples yet.</p>
+                <p class="style-empty-sub">Post comments on LinkedIn — the AI will silently learn how you write.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-top: 2px;">
+            <button id="syncCommentsBtn" class="btn btn-primary" style="flex: 1;">
+              🔄 Auto-Sync
+            </button>
+            <button id="clearStyleBtn" class="btn" style="background: transparent; border: 1px solid #ef4444; color: #f87171; flex: 1;">
+              🗑️ Clear Data
+            </button>
+          </div>
+
+          <details class="advanced-settings" style="margin-top: 15px; border-top: 1px solid var(--border); padding-top: 10px;">
+            <summary style="font-weight: 500; color: var(--text-secondary);">Or Manual Import (Foolproof)</summary>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 10px;">Paste 3-5 of your best past comments below (each on a new line) and hit Save. This is 100% reliable.</p>
+            <textarea id="manualCommentsTextarea" rows="5" placeholder="Paste your comment here...&#10;Paste another comment here...&#10;Paste a third comment here..." style="width: 100%; margin-top: 10px; padding: 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface-light); color: var(--text); resize: vertical;"></textarea>
+            <button id="saveManualCommentsBtn" class="btn btn-primary" style="margin-top: 10px; width: 100%;">
+              Save Manual Comments
+            </button>
+          </details>
+        </div>
+      </div>
+
+      <!-- Details Tab -->
+      <div id="details-tab" class="tab-content">
+        <div class="card">
+          <div class="form-group">
+            <label for="userDesignation">Your Designation / Role</label>
+            <select id="userDesignation">
+              <option value="general">General Professional</option>
+              <option value="software_engineer">Software Engineer</option>
+              <option value="product_manager">Product Manager</option>
+              <option value="recruiter">Recruiter / HR</option>
+              <option value="founder">Founder / CEO</option>
+              <option value="student">Student / Job Seeker</option>
+              <option value="custom">Custom...</option>
+            </select>
+          </div>
+
+          <div id="customDesignationGroup" class="form-group hidden">
+            <label for="customDesignation">Custom Designation</label>
+            <input type="text" id="customDesignation" placeholder="e.g., Data Scientist, Tech Lead" />
+          </div>
+
+          <div class="form-group">
+            <label for="targetPersona">Who posted it?</label>
+            <input type="text" id="targetPersona" placeholder="e.g. EdTech founder, Uni Admissions Director" />
+          </div>
+          <div class="form-group">
+            <label for="targetMarket">Their Market</label>
+            <select id="targetMarket">
+              <option value="general">General</option>
+              <option value="australia" selected>Australia</option>
+              <option value="uk">United Kingdom</option>
+              <option value="usa">United States</option>
+              <option value="canada">Canada</option>
+              <option value="india">India</option>
+              <option value="uae">UAE / Middle East</option>
+              <option value="singapore">Singapore / SEA</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="field-label">Post is about (Select tags)</label>
+            <div class="tag-cloud" id="topicTags">
+              <button class="tag" data-value="Student retention">Student retention</button>
+              <button class="tag" data-value="AI in education">AI in education</button>
+              <button class="tag" data-value="Exam prep strategy">Exam prep strategy</button>
+              <button class="tag" data-value="EdTech business model">EdTech business model</button>
+              <button class="tag" data-value="Content vs outcomes">Content vs outcomes</button>
+              <button class="tag" data-value="Trust & social proof">Trust &amp; social proof</button>
+              <button class="tag" data-value="Student focus / anxiety">Student focus / anxiety</button>
+              <button class="tag" data-value="Platform growth">Platform growth</button>
+            </div>
+          </div>
+          <div class="button-group">
+            <button id="saveDetailsBtn" class="btn btn-primary">
+              <span>Save Details</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="statusToast" class="toast hidden"></div>
+    </main>
+  </div>
+  <script src="options.js"></script>
+</body>
+
+</html>

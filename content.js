@@ -6,7 +6,7 @@
 function isInsideCommentOrUI(el) {
   // Return false if element is null/undefined
   if (!el) return false;
-  
+
   // 1. Check standard class names and attributes using closest()
   if (
     el.closest('.comments-comments-list') ||
@@ -25,7 +25,7 @@ function isInsideCommentOrUI(el) {
   ) {
     return true;
   }
-  
+
   // 2. Check data-urn containing comment
   const urnEl = el.closest('[data-urn]');
   if (urnEl) {
@@ -34,7 +34,7 @@ function isInsideCommentOrUI(el) {
       return true;
     }
   }
-  
+
   return false;
 }
 
@@ -46,7 +46,7 @@ function isNoiseText(el) {
   if (isInsideCommentOrUI(el)) {
     return true;
   }
-  
+
   // List of CSS selectors representing noise containers we want to ignore
   const noiseSelectors = [
     '.feed-shared-actor',
@@ -64,20 +64,20 @@ function isNoiseText(el) {
     '[class*="social-action"]',
     '[class*="social-row"]'
   ];
-  
+
   // Check if this text element belongs to any of the noise containers
   for (const selector of noiseSelectors) {
     if (el.closest(selector)) {
       return true;
     }
   }
-  
+
   // Explicit text match filtering for obfuscated UI buttons
   const text = (el.innerText || '').trim().toLowerCase();
   if (text === 'like' || text === 'reply' || text.includes('reaction button state') || text.includes('reactions') || text === 'share' || text === 'repost' || text === 'send' || text === 'comment') {
     return true;
   }
-  
+
   // If none match, it is considered clean content text
   return false;
 }
@@ -129,24 +129,24 @@ function isNoiseImage(img) {
   if (!src) return true;
 
   // Filter out emojis, SVGs, bookmarks, hashes, and small icons
-  if (src.includes('emoji') || 
-      src.includes('/emoji/') || 
-      src.startsWith('data:image/svg+xml') || 
-      src.includes('bookmark') || 
-      src.includes('hash-') ||
-      src.includes('mail-') ||
-      src.includes('icon-')) {
+  if (src.includes('emoji') ||
+    src.includes('/emoji/') ||
+    src.startsWith('data:image/svg+xml') ||
+    src.includes('bookmark') ||
+    src.includes('hash-') ||
+    src.includes('mail-') ||
+    src.includes('icon-')) {
     return true;
   }
 
   // Filter out LinkedIn profile photos, display photos, ghost/empty avatars, and company logos
-  if (src.includes('/profile-') || 
-      src.includes('/ghost-') || 
-      src.includes('profile-displayphoto') || 
-      src.includes('profile-displaydecryptedphoto') ||
-      src.includes('ghost-person') ||
-      src.includes('company-logo') ||
-      src.includes('/company-')) {
+  if (src.includes('/profile-') ||
+    src.includes('/ghost-') ||
+    src.includes('profile-displayphoto') ||
+    src.includes('profile-displaydecryptedphoto') ||
+    src.includes('ghost-person') ||
+    src.includes('company-logo') ||
+    src.includes('/company-')) {
     return true;
   }
 
@@ -158,7 +158,7 @@ function isNoiseImage(img) {
       const size = parseInt(shrinkMatch[1], 10);
       // Filter out small thumbnails < 500px (like profile avatars/logos)
       if (size < 500) {
-        return true; 
+        return true;
       }
     }
   }
@@ -181,11 +181,11 @@ function isNoiseImage(img) {
 function cleanText(text) {
   if (!text) return '';
   return text.replace(/\bsee\s+more\b/gi, '')
-             .replace(/\bsee\s+translation\b/gi, '')
-             .replace(/\.\.\.\s*more\b/gi, '')
-             .replace(/\bsee\s+less\b/gi, '')
-             .replace(/\s+/g, ' ')
-             .trim();
+    .replace(/\bsee\s+translation\b/gi, '')
+    .replace(/\.\.\.\s*more\b/gi, '')
+    .replace(/\bsee\s+less\b/gi, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function isPostCard(el) {
@@ -194,25 +194,25 @@ function isPostCard(el) {
   if (isInsideCommentOrUI(el)) {
     return false;
   }
-  
+
   if (el.hasAttribute('data-urn')) {
     const urn = el.getAttribute('data-urn') || '';
-    if (urn.startsWith('urn:li:') && 
-        !urn.includes('comment') && 
-        !urn.includes('member') && 
-        !urn.includes('profile') && 
-        !urn.includes('company') && 
-        !urn.includes('messaging')) {
+    if (urn.startsWith('urn:li:') &&
+      !urn.includes('comment') &&
+      !urn.includes('member') &&
+      !urn.includes('profile') &&
+      !urn.includes('company') &&
+      !urn.includes('messaging')) {
       return true;
     }
   }
   if (el.hasAttribute('data-activity-id')) {
     return true;
   }
-  if (el.classList.contains('feed-shared-update-v2') || 
-      el.classList.contains('feed-shared-update') ||
-      el.classList.contains('occludable-update') ||
-      el.classList.contains('feed-shared-activity-card')) {
+  if (el.classList.contains('feed-shared-update-v2') ||
+    el.classList.contains('feed-shared-update') ||
+    el.classList.contains('occludable-update') ||
+    el.classList.contains('feed-shared-activity-card')) {
     return true;
   }
   return false;
@@ -221,7 +221,7 @@ function isPostCard(el) {
 // Finds the parent post card container for a given comment box or editor, utilizing comments section boundary
 function findPostContainer(commentBox, commentsSection) {
   let el = commentsSection || commentBox;
-  
+
   // 1. Traverse up and find the outermost/highest element matching isPostCard (Fast path)
   let highestPostCard = null;
   while (el && el !== document.body) {
@@ -230,7 +230,7 @@ function findPostContainer(commentBox, commentsSection) {
     }
     el = el.parentElement;
   }
-  
+
   let candidate = highestPostCard;
   if (!candidate) {
     // 2. Fallback: Climb up from commentsSection, but at most 3 levels to stay local to the card
@@ -248,11 +248,11 @@ function findPostContainer(commentBox, commentsSection) {
     while (el && el !== document.body && steps < 3) {
       const tagName = el.tagName.toLowerCase();
       const classStr = el.className || '';
-      
+
       if (tagName === 'main' || layoutClasses.some(cls => el.classList.contains(cls) || classStr.includes(cls))) {
         break;
       }
-      
+
       candidate = el;
       el = el.parentElement;
       steps++;
@@ -271,7 +271,7 @@ function findPostContainer(commentBox, commentsSection) {
     climbEl = parent;
     candidate = climbEl;
   }
-  
+
   return candidate;
 }
 
@@ -282,11 +282,11 @@ function findParentComment(commentBox, postContainer) {
   if (closestComment && postContainer.contains(closestComment)) {
     return closestComment;
   }
-  
+
   // 2. If appended as a sibling or outside, find all comments in the post container
   const allComments = Array.from(postContainer.querySelectorAll('.comments-comment-item, [data-comment-id], article, [role="comment"]'))
-      .filter(el => !commentBox.contains(el)); // ignore if somehow inside the editor
-  
+    .filter(el => !commentBox.contains(el)); // ignore if somehow inside the editor
+
   // Iterate in document order and find the last comment that appears BEFORE the comment box
   let closestBefore = null;
   for (const comment of allComments) {
@@ -299,87 +299,87 @@ function findParentComment(commentBox, postContainer) {
       break;
     }
   }
-  
+
   if (closestBefore) {
     // If structural checking gave us a comment, let's keep it as a fallback
     // But we still prefer the exact name match if available, to avoid edge cases where DOM order is disconnected.
   }
-  
+
   // 3. Fallback: Search by targeted author name (The ultimate foolproof check)
   // Extract name from placeholder (e.g. "Reply to Manoj...") or typed text (e.g. "Manoj Rajoriya")
   let targetName = '';
   const editor = commentBox.classList.contains('ql-editor') ? commentBox : (commentBox.querySelector('.ql-editor') || commentBox.querySelector('[contenteditable="true"]') || commentBox);
-  
+
   if (editor) {
-      let placeholder = (editor.getAttribute('data-placeholder') || editor.getAttribute('aria-label') || '').toLowerCase();
-      if (!placeholder) {
-          const childPlaceholder = editor.querySelector('[data-placeholder], [aria-label]');
-          if (childPlaceholder) {
-              placeholder = (childPlaceholder.getAttribute('data-placeholder') || childPlaceholder.getAttribute('aria-label') || '').toLowerCase();
-          }
+    let placeholder = (editor.getAttribute('data-placeholder') || editor.getAttribute('aria-label') || '').toLowerCase();
+    if (!placeholder) {
+      const childPlaceholder = editor.querySelector('[data-placeholder], [aria-label]');
+      if (childPlaceholder) {
+        placeholder = (childPlaceholder.getAttribute('data-placeholder') || childPlaceholder.getAttribute('aria-label') || '').toLowerCase();
       }
-      if (placeholder.includes('reply to')) {
-          targetName = placeholder.replace('reply to', '').replace(/\.+$/, '').trim();
-      }
+    }
+    if (placeholder.includes('reply to')) {
+      targetName = placeholder.replace('reply to', '').replace(/\.+$/, '').trim();
+    }
   }
-  
+
   if (!targetName) {
-      targetName = extractUserTypedText(commentBox).trim().toLowerCase();
+    targetName = extractUserTypedText(commentBox).trim().toLowerCase();
   }
-  
+
   if (targetName) {
-     const cleanTarget = targetName.replace(/[\n\r].*/g, '').replace(/[^a-z0-9 ]/gi, '').trim();
-     
-     if (cleanTarget.length > 2) {
-       for (const comment of allComments) {
-           const authorEl = comment.querySelector('.comments-post-meta__name-text, .comments-comment-meta__name-text, .update-components-actor__name, .comments-comment-meta__description-title');
-           if (authorEl) {
-               const authorName = (authorEl.innerText || '').toLowerCase();
-               const cleanAuthor = authorName.replace(/[\n\r].*/g, '').replace(/[^a-z0-9 ]/gi, '').trim();
-               
-               if (cleanAuthor && cleanTarget && (cleanAuthor.includes(cleanTarget) || cleanTarget.includes(cleanAuthor))) {
-                   console.log('[LinkedIn AI] Found parent comment by author name match:', cleanAuthor);
-                   return comment;
-               }
-           }
-       }
-       
-       // Global fallback: If postContainer was broken, search the whole page for that author!
-       const globalComments = document.querySelectorAll('.comments-comment-item, [data-comment-id], article, [role="comment"]');
-       for (const comment of globalComments) {
-           if (commentBox.contains(comment)) continue;
-           const authorEl = comment.querySelector('.comments-post-meta__name-text, .comments-comment-meta__name-text, .update-components-actor__name, .comments-comment-meta__description-title');
-           if (authorEl) {
-               const authorName = (authorEl.innerText || '').toLowerCase();
-               const cleanAuthor = authorName.replace(/[\n\r].*/g, '').replace(/[^a-z0-9 ]/gi, '').trim();
-               
-               if (cleanAuthor && cleanTarget && (cleanAuthor.includes(cleanTarget) || cleanTarget.includes(cleanAuthor))) {
-                   console.log('[LinkedIn AI] Found parent comment via GLOBAL author name match:', cleanAuthor);
-                   return comment;
-               }
-           }
-       }
-     }
+    const cleanTarget = targetName.replace(/[\n\r].*/g, '').replace(/[^a-z0-9 ]/gi, '').trim();
+
+    if (cleanTarget.length > 2) {
+      for (const comment of allComments) {
+        const authorEl = comment.querySelector('.comments-post-meta__name-text, .comments-comment-meta__name-text, .update-components-actor__name, .comments-comment-meta__description-title');
+        if (authorEl) {
+          const authorName = (authorEl.innerText || '').toLowerCase();
+          const cleanAuthor = authorName.replace(/[\n\r].*/g, '').replace(/[^a-z0-9 ]/gi, '').trim();
+
+          if (cleanAuthor && cleanTarget && (cleanAuthor.includes(cleanTarget) || cleanTarget.includes(cleanAuthor))) {
+            console.log('[LinkedIn AI] Found parent comment by author name match:', cleanAuthor);
+            return comment;
+          }
+        }
+      }
+
+      // Global fallback: If postContainer was broken, search the whole page for that author!
+      const globalComments = document.querySelectorAll('.comments-comment-item, [data-comment-id], article, [role="comment"]');
+      for (const comment of globalComments) {
+        if (commentBox.contains(comment)) continue;
+        const authorEl = comment.querySelector('.comments-post-meta__name-text, .comments-comment-meta__name-text, .update-components-actor__name, .comments-comment-meta__description-title');
+        if (authorEl) {
+          const authorName = (authorEl.innerText || '').toLowerCase();
+          const cleanAuthor = authorName.replace(/[\n\r].*/g, '').replace(/[^a-z0-9 ]/gi, '').trim();
+
+          if (cleanAuthor && cleanTarget && (cleanAuthor.includes(cleanTarget) || cleanTarget.includes(cleanAuthor))) {
+            console.log('[LinkedIn AI] Found parent comment via GLOBAL author name match:', cleanAuthor);
+            return comment;
+          }
+        }
+      }
+    }
   }
-  
-   if (closestBefore) {
-       return closestBefore;
-   }
-   
-   // Ultimate global structural fallback if targetName fails and postContainer was broken
-   const globalCommentsBackup = document.querySelectorAll('.comments-comment-item, [data-comment-id], article');
-   let globalClosestBefore = null;
-   for (const comment of globalCommentsBackup) {
-       if (commentBox.contains(comment)) continue;
-       const pos = comment.compareDocumentPosition(commentBox);
-       if ((pos & Node.DOCUMENT_POSITION_FOLLOWING) || (pos & Node.DOCUMENT_POSITION_CONTAINED_BY)) {
-           globalClosestBefore = comment;
-       } else {
-           break;
-       }
-   }
-   
-   return globalClosestBefore;
+
+  if (closestBefore) {
+    return closestBefore;
+  }
+
+  // Ultimate global structural fallback if targetName fails and postContainer was broken
+  const globalCommentsBackup = document.querySelectorAll('.comments-comment-item, [data-comment-id], article');
+  let globalClosestBefore = null;
+  for (const comment of globalCommentsBackup) {
+    if (commentBox.contains(comment)) continue;
+    const pos = comment.compareDocumentPosition(commentBox);
+    if ((pos & Node.DOCUMENT_POSITION_FOLLOWING) || (pos & Node.DOCUMENT_POSITION_CONTAINED_BY)) {
+      globalClosestBefore = comment;
+    } else {
+      break;
+    }
+  }
+
+  return globalClosestBefore;
 }
 
 
@@ -391,7 +391,7 @@ function containsPostDescription(element) {
     // Must not be inside comments or UI
     if (isInsideCommentOrUI(el)) continue;
     if (el.closest('a') || el.closest('button')) continue;
-    
+
     // Target leaf text elements (no child formatting blocks)
     if (!el.querySelector('span, p, div')) {
       const txt = (el.innerText || '').trim();
@@ -408,7 +408,7 @@ function containsPostDescription(element) {
 // This lets us block comment elements structural-wise, independent of dynamic classes!
 function findCommentsSection(commentBox) {
   let el = commentBox;
-  
+
   // 1. Try to find the closest ancestor that matches comment containers
   while (el && el !== document.body) {
     const classStr = el.className || '';
@@ -434,47 +434,47 @@ function findCommentsSection(commentBox) {
     const parent = el.parentElement;
     const tagName = parent.tagName.toLowerCase();
     const classStr = parent.className || '';
-    
+
     // Stop climbing if we hit major layout boundaries or post card containers,
     // or if the parent wraps the main post description (which means el is the comments boundary!)
-    if (tagName === 'main' || 
-        isPostCard(parent) ||
-        isPostCard(el) ||
-        containsPostDescription(parent) ||
-        classStr.includes('scaffold-layout') || 
-        classStr.includes('scaffold-finite-scroll') || 
-        classStr.includes('feed-shared-update-v2__comments-container') || 
-        classStr.includes('comments-comments-list')) {
+    if (tagName === 'main' ||
+      isPostCard(parent) ||
+      isPostCard(el) ||
+      containsPostDescription(parent) ||
+      classStr.includes('scaffold-layout') ||
+      classStr.includes('scaffold-finite-scroll') ||
+      classStr.includes('feed-shared-update-v2__comments-container') ||
+      classStr.includes('comments-comments-list')) {
       break;
     }
-    
+
     // Find siblings of the current element at this level
     const siblings = Array.from(parent.children).filter(child => child !== el);
     let siblingsHaveText = false;
-    
+
     for (const sib of siblings) {
       // Skip comments list, comment items, or custom AI trigger/suggestions wrappers
       if (isInsideCommentOrUI(sib)) continue;
       // Skip actor headers, social row bars, and other noise siblings
       if (isNoiseText(sib)) continue;
-      
+
       const sibText = sib.innerText || '';
       if (sibText.trim().replace(/\s+/g, ' ').length > 15) {
         siblingsHaveText = true;
         break;
       }
     }
-    
+
     if (siblingsHaveText) {
       // el has siblings with substantial text, meaning el does not wrap the whole post content card yet.
       // So el is a valid candidate for the comments section wrapper.
       candidate = el;
     }
-    
+
     el = parent;
     depth++;
   }
-  
+
   return candidate;
 }
 
@@ -587,7 +587,7 @@ function extractPostImage(postContainer, commentsSection) {
     for (const img of images) {
       if (commentsSection && commentsSection.contains(img)) continue;
       if (isNoiseImage(img)) continue;
-      
+
       const src = img.getAttribute('data-delayed-url') || img.getAttribute('data-src') || img.src;
       if (src) {
         return src;
@@ -600,7 +600,7 @@ function extractPostImage(postContainer, commentsSection) {
 // Extracts the text of the parent comment we are replying to, independent of class names.
 function extractParentCommentText(parentComment, commentBox) {
   const textParts = [];
-  
+
   // Specific selectors that typically hold comment text
   const selectors = [
     '.comments-comment-item__main-content',
@@ -609,7 +609,7 @@ function extractParentCommentText(parentComment, commentBox) {
     '.update-components-text',
     '.break-words'
   ];
-  
+
   for (const selector of selectors) {
     const elements = parentComment.querySelectorAll(selector);
     for (const el of elements) {
@@ -625,7 +625,7 @@ function extractParentCommentText(parentComment, commentBox) {
     }
     if (textParts.length > 0) break;
   }
-  
+
   // Fallback
   if (textParts.length === 0) {
     const allEls = parentComment.querySelectorAll('span, p');
@@ -643,7 +643,7 @@ function extractParentCommentText(parentComment, commentBox) {
       }
     }
   }
-  
+
   return textParts.join(' ').trim();
 }
 
@@ -653,33 +653,33 @@ function extractUserTypedText(commentBox) {
   try {
     let editor = commentBox.classList.contains('ql-editor') ? commentBox : (commentBox.querySelector('.ql-editor') || null);
     if (!editor) {
-       editor = commentBox.hasAttribute('contenteditable') ? commentBox : commentBox.querySelector('[contenteditable="true"]');
+      editor = commentBox.hasAttribute('contenteditable') ? commentBox : commentBox.querySelector('[contenteditable="true"]');
     }
     if (!editor) {
-       editor = commentBox;
+      editor = commentBox;
     }
-    
+
     let text = '';
     const walker = document.createTreeWalker(editor, NodeFilter.SHOW_TEXT, {
-      acceptNode: function(node) {
+      acceptNode: function (node) {
         if (node.parentElement && (
-            node.parentElement.closest('.ln-ai-panel-wrapper') ||
-            node.parentElement.closest('.ln-ai-action-row') ||
-            node.parentElement.closest('.ln-ai-trigger-btn') ||
-            node.parentElement.closest('.ln-ai-regen-btn') ||
-            node.parentElement.closest('.ln-ai-suggestions-panel') ||
-            node.parentElement.closest('button')
+          node.parentElement.closest('.ln-ai-panel-wrapper') ||
+          node.parentElement.closest('.ln-ai-action-row') ||
+          node.parentElement.closest('.ln-ai-trigger-btn') ||
+          node.parentElement.closest('.ln-ai-regen-btn') ||
+          node.parentElement.closest('.ln-ai-suggestions-panel') ||
+          node.parentElement.closest('button')
         )) {
           return NodeFilter.FILTER_REJECT;
         }
         return NodeFilter.FILTER_ACCEPT;
       }
     });
-    
-    while(walker.nextNode()) {
+
+    while (walker.nextNode()) {
       text += walker.currentNode.nodeValue + ' ';
     }
-    
+
     text = text.replace(/[\u200B-\u200D\uFEFF]/g, '').trim();
     text = text.replace(/\s+/g, ' ');
     return text;
@@ -695,7 +695,7 @@ function backwardExtractParentText(commentBox) {
   let el = commentBox;
   let fallbackText = '';
   let steps = 0;
-  
+
   while (el && el !== document.body && steps < 500) {
     let prev = el.previousSibling;
     while (prev) {
@@ -707,12 +707,12 @@ function backwardExtractParentText(commentBox) {
           }
           return null;
         }).filter(Boolean);
-        
+
         // Also check the element itself if it has no children
         if (prev.childNodes.length === 1 && prev.childNodes[0].nodeType === Node.TEXT_NODE) {
-            texts.push({ el: prev, text: prev.innerText?.trim() });
+          texts.push({ el: prev, text: prev.innerText?.trim() });
         }
-        
+
         // Process collected texts in reverse order (closest to commentBox first)
         for (let i = texts.length - 1; i >= 0; i--) {
           const item = texts[i];
@@ -720,19 +720,19 @@ function backwardExtractParentText(commentBox) {
           if (isInsideCommentOrUI(item.el)) continue;
           if (item.el.closest('a') || item.el.closest('button')) continue;
           if (isNoiseText(item.el)) continue;
-          
+
           fallbackText = item.text + ' ' + fallbackText;
-          
+
           // If we've gathered at least a reasonable amount of text, assume we found the comment
           if (fallbackText.length > 5) {
             return cleanText(fallbackText);
           }
         }
       } else if (prev.nodeType === Node.TEXT_NODE) {
-         const text = prev.nodeValue.trim();
-         if (text.length > 5) {
-             return cleanText(text);
-         }
+        const text = prev.nodeValue.trim();
+        if (text.length > 5) {
+          return cleanText(text);
+        }
       }
       prev = prev.previousSibling;
       steps++;
@@ -772,8 +772,8 @@ function extractPostContent(commentBox, forceReplyMode = false) {
     console.log('[LinkedIn AI] Detected reply comment box. Extracting parent comment text...');
     if (parentComment) {
       parentCommentText = extractParentCommentText(parentComment, commentBox);
-    } 
-    
+    }
+
     // Fallback: If structural extraction failed or parentComment was null, use the backwards visual walker
     if (!parentCommentText) {
       console.log('[LinkedIn AI] Using backward visual walker to find parent comment text...');
@@ -785,7 +785,7 @@ function extractPostContent(commentBox, forceReplyMode = false) {
   const mainPostText = extractPostText(postContainer, commentsSection, commentBox);
   const imageUrl = extractPostImage(postContainer, commentsSection);
   const userTypedText = extractUserTypedText(commentBox);
-  
+
   // Format container diagnostic descriptor
   const classStr = postContainer.className || '';
   const containerDesc = `${postContainer.tagName}.${classStr.trim().replace(/\s+/g, '.')}`;
@@ -825,7 +825,7 @@ function extractPostContent(commentBox, forceReplyMode = false) {
           const inLinkOrBtn = !!(el.closest('a') || el.closest('button'));
           const inUI = isInsideCommentOrUI(el);
           const isNoise = isNoiseText(el);
-          
+
           childList.push(`- [${el.tagName}] class="${el.className}" text="${txt.substring(0, 50)}" (inCommentsSec: ${inCommentsSec}, inLinkOrBtn: ${inLinkOrBtn}, inUI: ${inUI}, isNoise: ${isNoise})`);
           count++;
           if (count >= 30) break;
@@ -930,8 +930,8 @@ function renderApiKeyWarning(panelWrapper) {
           </svg>
           Missing API Keys
         </div>
-        <p class="ln-ai-warning-text" style="color: #ef4444 !important; font-weight: 500; margin-top: 8px;">Please add your <code>GEMINI_API_KEY</code> or <code>GROQ_API_KEY</code> to the local <code>config.env</code> file inside the extension folder to start generating comments.</p>
-        <button class="ln-ai-warning-btn">Open Settings Page</button>
+        <p class="ln-ai-warning-text" style="color: #ef4444 !important; font-weight: 500; margin-top: 8px;">Please add your <code>GEMINI_API_KEY</code> or <code>GROQ_API_KEY</code>  inside the extension folder to start generating comments.</p>
+        
       </div>
     </div>
   `;
@@ -1056,7 +1056,7 @@ function renderSuggestions(panelWrapper, suggestions, editor) {
     card.addEventListener('click', (e) => {
       // Don't trigger if clicked copy or use button directly (we handle those below)
       if (e.target.closest('.copy-btn') || e.target.closest('.use-btn')) return;
-      chrome.runtime.sendMessage({ action: 'TRACK_ANALYTICS', tone: type }).catch(() => {});
+      chrome.runtime.sendMessage({ action: 'TRACK_ANALYTICS', tone: type }).catch(() => { });
       injectComment(editor, commentText);
       panelWrapper.style.display = 'none';
       // Show regenerate button for this tone/style
@@ -1067,7 +1067,7 @@ function renderSuggestions(panelWrapper, suggestions, editor) {
     // Use button action handler
     const useBtn = card.querySelector('.use-btn');
     useBtn.addEventListener('click', () => {
-      chrome.runtime.sendMessage({ action: 'TRACK_ANALYTICS', tone: type }).catch(() => {});
+      chrome.runtime.sendMessage({ action: 'TRACK_ANALYTICS', tone: type }).catch(() => { });
       injectComment(editor, commentText);
       panelWrapper.style.display = 'none';
       // Show regenerate button for this tone/style
@@ -1078,7 +1078,7 @@ function renderSuggestions(panelWrapper, suggestions, editor) {
     // Copy to clipboard action handler
     const copyBtn = card.querySelector('.copy-btn');
     copyBtn.addEventListener('click', () => {
-      chrome.runtime.sendMessage({ action: 'TRACK_ANALYTICS', tone: type }).catch(() => {});
+      chrome.runtime.sendMessage({ action: 'TRACK_ANALYTICS', tone: type }).catch(() => { });
       navigator.clipboard.writeText(commentText).then(() => {
         const svg = copyBtn.querySelector('svg');
         const origContent = copyBtn.innerHTML;
@@ -1215,7 +1215,7 @@ function injectAIComponents(commentBox, editor, options = { isReplyMode: false }
   // 1. Create the AI Trigger button
   const triggerBtn = document.createElement('button');
   triggerBtn.type = 'button';
-  
+
   if (options.isReplyMode) {
     triggerBtn.className = 'ln-ai-reply-trigger-btn';
     triggerBtn.innerHTML = `🗨️`;
@@ -1233,7 +1233,7 @@ function injectAIComponents(commentBox, editor, options = { isReplyMode: false }
   // 2. Create panel wrapper
   const panelWrapper = document.createElement('div');
   panelWrapper.className = 'ln-ai-panel-wrapper';
-  
+
   // 1b. Create our own controlled action row that holds both the trigger btn and (later) the regen btn.
   //     This row is flex so we can push the regen btn to the right with margin-left:auto.
   const aiActionRow = document.createElement('div');
@@ -1290,7 +1290,7 @@ function injectAIComponents(commentBox, editor, options = { isReplyMode: false }
     const isReply = postContent.isReply || false;
     const mainPostText = postContent.mainPostText || '';
     const userTypedText = postContent.userTypedText || '';
-    
+
     // If no text or image was resolved, throw a diagnostic warning
     if (!postText && !imageUrl) {
       const diagnosticMsg = `Could not find readable post content or image. Ensure the post is visible.\n\nDiagnostics Path:\n-> ${postContent.diagnostics}`;
@@ -1390,7 +1390,7 @@ function attachStyleCapture(commentBox, editor) {
       if (text.length >= 15 && !text.startsWith('⏳') && !text.startsWith('❌')) {
         lastText = text;
       }
-    } catch (_) {}
+    } catch (_) { }
   });
 
   // ── 2. Detect editor clearing (post submitted) via MutationObserver ───────
@@ -1409,7 +1409,7 @@ function attachStyleCapture(commentBox, editor) {
           chrome.runtime.sendMessage({
             action: 'SAVE_USER_COMMENT',
             text: lastText
-          }).catch(() => {});
+          }).catch(() => { });
         }
         lastText = ''; // Reset so we don't double-save
       }
@@ -1435,7 +1435,7 @@ function attachStyleCapture(commentBox, editor) {
       if (raw.length >= 15 && !raw.startsWith('⏳') && !raw.startsWith('❌')) {
         lastText = raw; // Refresh snapshot right before potential post
       }
-    } catch (_) {}
+    } catch (_) { }
   }, true); // Use capture phase so it fires before LinkedIn's own handlers
 }
 
@@ -1450,11 +1450,11 @@ function attachSlashCommandListener(editor, commentBox) {
 
   editor.addEventListener('input', async (e) => {
     const text = editor.innerText || '';
-    
+
     // Look for a trailing slash command followed by a space
     // e.g., "This is awesome! /funny " -> match[1] = "funny"
     const match = text.match(/\/([a-zA-Z0-9_-]+)\s$/);
-    
+
     if (match) {
       const style = match[1];
       const userContext = text.slice(0, match.index).trim(); // "This is awesome!"
@@ -1468,7 +1468,7 @@ function attachSlashCommandListener(editor, commentBox) {
       let postContentData;
       try {
         postContentData = extractPostContent(commentBox);
-      } catch(err) {
+      } catch (err) {
         editor.removeAttribute('data-ln-ai-loading');
         console.error('[LinkedIn AI] Failed to extract post content:', err);
         injectComment(editor, userContext);
@@ -1479,9 +1479,9 @@ function attachSlashCommandListener(editor, commentBox) {
 
       // Now it is safe to show the loading indicator
       injectComment(editor, `⏳ Generating /${style}...`);
-      
+
       try {
-        
+
         chrome.runtime.sendMessage({
           action: 'GENERATE_SINGLE_COMMENT',
           style: style,
@@ -1517,7 +1517,7 @@ function attachSlashCommandListener(editor, commentBox) {
 function scanAndInject() {
   // Find all active comment editor boxes (broad match for maximum compatibility)
   const editors = document.querySelectorAll('.ql-editor[contenteditable="true"], div[contenteditable="true"], div[role="textbox"]');
-  
+
   if (editors.length > 0) {
     console.log(`[LinkedIn AI] Scan running. Found ${editors.length} potential editors.`);
   }
@@ -1539,18 +1539,18 @@ function scanAndInject() {
     if (commentBox.getAttribute('data-ln-ai-injected') === 'true' || editor.getAttribute('data-ln-ai-injected') === 'true') {
       return;
     }
-    
+
     // To infallibly determine if this is a main post comment box vs a nested reply box,
     // we look for the placeholder text. Main post comment boxes ALWAYS have "Add a comment...".
     // Reply boxes usually say "Reply to Name...".
     let isMainPostCommentBox = false;
-    
+
     // Check the editor itself
     const editorPlaceholder = (editor.getAttribute('data-placeholder') || editor.getAttribute('aria-label') || '').toLowerCase();
     if (editorPlaceholder.includes('add a comment')) {
       isMainPostCommentBox = true;
     }
-    
+
     // Check children (LinkedIn sometimes puts the placeholder on a nested <p> tag)
     if (!isMainPostCommentBox) {
       const childPlaceholders = Array.from(editor.querySelectorAll('[data-placeholder], [aria-label]'));
@@ -1562,7 +1562,7 @@ function scanAndInject() {
         }
       }
     }
-    
+
     // Check parent/ancestors up to the comment box
     if (!isMainPostCommentBox) {
       let curr = editor.parentElement;
@@ -1587,7 +1587,7 @@ function scanAndInject() {
       // User requested: "made another button of reply which appears when i click on reply on someone's comment"
       injectAIComponents(commentBox, editor, { isReplyMode: true });
     }
-    
+
     // Attach slash command listener for ALL editors
     attachSlashCommandListener(editor, commentBox);
 
@@ -1602,10 +1602,10 @@ function detectPostSuccess(addedNodes) {
   for (const node of addedNodes) {
     if (node.nodeType === Node.ELEMENT_NODE) {
       // Find toast messages
-      const toasts = node.classList && node.classList.contains('artdeco-toast-item') 
-        ? [node] 
+      const toasts = node.classList && node.classList.contains('artdeco-toast-item')
+        ? [node]
         : Array.from(node.querySelectorAll('.artdeco-toast-item'));
-        
+
       for (const toast of toasts) {
         const text = toast.innerText || '';
         if (text.toLowerCase().includes('post successful')) {
@@ -1616,7 +1616,7 @@ function detectPostSuccess(addedNodes) {
             chrome.runtime.sendMessage({
               action: 'NEW_POST_DETECTED',
               url: viewPostLink.href
-            }).catch(() => {});
+            }).catch(() => { });
           }
         }
       }
@@ -1626,7 +1626,7 @@ function detectPostSuccess(addedNodes) {
 
 function initObserver() {
   console.log('[LinkedIn AI] Extension loaded. Initializing observer...');
-  
+
   // Initial scan on page load
   scanAndInject();
 
@@ -1643,7 +1643,7 @@ function initObserver() {
         document.documentElement.setAttribute('data-theme', changes.theme.newValue || 'fire');
       }
     });
-  } catch(e) {
+  } catch (e) {
     console.error("[LinkedIn AI] Error loading theme:", e);
   }
 
@@ -1674,7 +1674,7 @@ function initObserver() {
     childList: true,
     subtree: true
   });
-  
+
   // Robust Fallback 1: Force scan on user clicks (like clicking "Comment" or "Reply")
   document.addEventListener('click', () => {
     if (!isContextValid()) return;
@@ -1690,7 +1690,7 @@ function initObserver() {
       scanAndInject();
     }
   });
-  
+
   // Robust Fallback 3: Periodically scan every 3 seconds
   const periodicScanInterval = setInterval(() => {
     if (!isContextValid()) {

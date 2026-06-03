@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "LinkedIn AI Comment Assistant",
-  "version": "2.0.0",
-  "description": "Generate precise, ICP-targeted, voice-matched LinkedIn comments using Claude AI.",
+  "name": "Commento ",
+  "version": "1.0",
+  "description": "Analyze any LinkedIn post and get personalized comment suggestions based on your role, industry, and communication style.",
   "permissions": [
     "storage",
     "tabs",
@@ -11,7 +11,6 @@
   "host_permissions": [
     "https://*.linkedin.com/*",
     "https://*.licdn.com/*",
-    "https://api.anthropic.com/*",
     "https://generativelanguage.googleapis.com/*",
     "https://api.groq.com/*",
     "https://api.telegram.org/*",
@@ -34,21 +33,22 @@
     "service_worker": "background.js"
   },
   "options_ui": {
-    "page": "popup.html",
+    "page": "options.html",
     "open_in_tab": true
   },
   "content_scripts": [
     {
-      "matches": ["https://*.linkedin.com/*"],
-      "js": ["content.js"],
-      "css": ["content.css"],
+      "matches": [
+        "https://*.linkedin.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
       "run_at": "document_end"
     }
   ],
-  "web_accessible_resources": [
-    {
-      "resources": ["config.env"],
-      "matches": ["<all_urls>"]
-    }
-  ]
+  "web_accessible_resources": []
 }

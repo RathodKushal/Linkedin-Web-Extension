@@ -1,4 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Show / Hide toggle for API key inputs inside Advanced Settings
+  document.querySelectorAll('.btn-toggle-visibility').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const input = document.getElementById(btn.dataset.target);
+      if (!input) return;
+      input.type = input.type === 'password' ? 'text' : 'password';
+    });
+  });
+
   const defaultToneSelect = document.getElementById('defaultTone');
   const commentLengthSelect = document.getElementById('commentLength');
   const userDesignationSelect = document.getElementById('userDesignation');
@@ -42,9 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Load saved settings
   chrome.storage.local.get([
-    'defaultTone', 'commentLength', 'userDesignation', 'customDesignation', 
+    'defaultTone', 'commentLength', 'userDesignation', 'customDesignation',
     'emojisEnabled', 'addHook', 'customPrompt', 'stylePromptCount',
-    'targetPersona', 'targetMarket', 'selectedTopics', 'theme'
+    'targetPersona', 'targetMarket', 'selectedTopics', 'theme',
+    'apiKey_GEMINI', 'apiKey_GROQ'
   ], (result) => {
     if (result.defaultTone) defaultToneSelect.value = result.defaultTone;
     if (result.commentLength) commentLengthSelect.value = result.commentLength;
@@ -66,6 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (result.targetPersona && targetPersonaInput) targetPersonaInput.value = result.targetPersona;
     if (result.targetMarket && targetMarketSelect) targetMarketSelect.value = result.targetMarket;
+    // Pre-fill API key inputs
+    const geminiInput = document.getElementById('apiKeyGemini');
+    const groqInput   = document.getElementById('apiKeyGroq');
+    if (geminiInput && result.apiKey_GEMINI) geminiInput.value = result.apiKey_GEMINI;
+    if (groqInput   && result.apiKey_GROQ)   groqInput.value   = result.apiKey_GROQ;
     
     if (result.selectedTopics) {
       document.querySelectorAll('#topicTags .tag').forEach(tag => {
@@ -119,7 +134,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   saveBtn.addEventListener('click', () => {
-    chrome.storage.local.set({
+    const geminiKey = document.getElementById('apiKeyGemini')?.value.trim();
+    const groqKey   = document.getElementById('apiKeyGroq')?.value.trim();
+    const toSave = {
       defaultTone: defaultToneSelect.value,
       commentLength: commentLengthSelect.value,
       emojisEnabled: emojisEnabledCheckbox.checked,
@@ -127,7 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
       customPrompt: customPromptTextarea.value.trim(),
       theme: themeSelect ? themeSelect.value : 'fire',
       stylePromptCount: document.getElementById('stylePromptCount') ? document.getElementById('stylePromptCount').value : '10'
-    }, () => {
+    };
+    if (geminiKey !== undefined) toSave.apiKey_GEMINI = geminiKey;
+    if (groqKey   !== undefined) toSave.apiKey_GROQ   = groqKey;
+    chrome.storage.local.set(toSave, () => {
       showStatus('Settings saved successfully!', 'success');
     });
   });

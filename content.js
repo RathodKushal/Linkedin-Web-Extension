@@ -930,7 +930,7 @@ function renderApiKeyWarning(panelWrapper) {
           </svg>
           Missing API Keys
         </div>
-        <p class="ln-ai-warning-text">Please add your <code>GEMINI_API_KEY</code> or <code>GROQ_API_KEY</code> to the local <code>config.env</code> file inside the extension folder to start generating comments.</p>
+        <p class="ln-ai-warning-text" style="color: #ef4444 !important; font-weight: 500; margin-top: 8px;">Please add your <code>GEMINI_API_KEY</code> or <code>GROQ_API_KEY</code> to the local <code>config.env</code> file inside the extension folder to start generating comments.</p>
         <button class="ln-ai-warning-btn">Open Settings Page</button>
       </div>
     </div>
@@ -974,7 +974,7 @@ function renderError(panelWrapper, message) {
         <div class="ln-ai-warning-title" style="color: #ef4444;">
           Error Generating Suggestions
         </div>
-        <p class="ln-ai-warning-text" style="white-space: pre-wrap; text-align: left; font-family: monospace; font-size: 11px; line-height: 1.4; max-height: 200px; overflow-y: auto; background: rgba(0,0,0,0.03); padding: 8px; border-radius: 6px; margin: 8px 0; border: 1px dashed rgba(239, 68, 68, 0.2);">${message}</p>
+        <p class="ln-ai-warning-text" style="color: #ef4444 !important; white-space: pre-wrap; text-align: left; font-family: monospace; font-size: 11px; line-height: 1.4; max-height: 200px; overflow-y: auto; background: rgba(0,0,0,0.03); padding: 8px; border-radius: 6px; margin: 8px 0; border: 1px dashed rgba(239, 68, 68, 0.2);">${message}</p>
       </div>
     </div>
   `;

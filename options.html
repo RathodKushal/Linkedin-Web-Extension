@@ -7,7 +7,8 @@
   <title>LinkedIn AI Comment Assistant — Settings</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="options.css">
 </head>
 
@@ -17,10 +18,11 @@
       <div class="logo-area">
         <div class="logo-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-3.5-9c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm7 0c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8s-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm-5 5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-3.5-9c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm7 0c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8s-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm-5 5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
           </svg>
         </div>
-        <h1>LinkedIn AI Comment Assistant</h1>
+        <h1>Commento V 1.0</h1>
       </div>
     </header>
 
@@ -49,8 +51,8 @@
             <label for="commentLength">Comment Length</label>
             <select id="commentLength">
               <option value="short">Short (Concise, 1 sentence)</option>
-              <option value="medium">Medium (Balanced, 2-3 sentences)</option>
-              <option value="long">Long (Detailed, 3-5 sentences)</option>
+              <option value="medium">Medium (Balanced, 3-4 sentences)</option>
+              <option value="long">Long (Detailed, 4-5 sentences)</option>
             </select>
           </div>
 
@@ -96,7 +98,44 @@
 
           <details class="advanced-settings">
             <summary>Advanced Settings (Power Users)</summary>
-            <div class="form-group" style="margin-top: 12px;">
+
+            <div class="form-group" style="margin-top: 16px;">
+              <label
+                style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 10px; display: block;">🔑
+                API Keys</label>
+              <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.5;">Stored
+                only on your device — never sent anywhere.</p>
+
+              <div class="form-group" style="margin-bottom: 10px;">
+                <label for="apiKeyGemini">Gemini <span
+                    style="font-weight:400; color: var(--text-secondary);">(Primary)</span></label>
+                <div style="display: flex; gap: 6px; align-items: center; margin-top: 4px;">
+                  <input type="password" id="apiKeyGemini" placeholder="AIzaSy..."
+                    style="flex: 1; font-family: monospace; font-size: 12px;" />
+                  <button class="btn-toggle-visibility" data-target="apiKeyGemini" title="Show / Hide"
+                    style="background: none; border: 1px solid var(--border); border-radius: 6px; padding: 5px 9px; cursor: pointer; color: var(--text-secondary); flex-shrink: 0;">👁</button>
+                </div>
+                <small style="color: var(--text-secondary); font-size: 11px;">Get yours at <a
+                    href="https://aistudio.google.com/app/apikey" target="_blank"
+                    style="color: var(--accent);">aistudio.google.com</a></small>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 0;">
+                <label for="apiKeyGroq">Groq <span
+                    style="font-weight:400; color: var(--text-secondary);">(Fallback)</span></label>
+                <div style="display: flex; gap: 6px; align-items: center; margin-top: 4px;">
+                  <input type="password" id="apiKeyGroq" placeholder="gsk_..."
+                    style="flex: 1; font-family: monospace; font-size: 12px;" />
+                  <button class="btn-toggle-visibility" data-target="apiKeyGroq" title="Show / Hide"
+                    style="background: none; border: 1px solid var(--border); border-radius: 6px; padding: 5px 9px; cursor: pointer; color: var(--text-secondary); flex-shrink: 0;">👁</button>
+                </div>
+                <small style="color: var(--text-secondary); font-size: 11px;">Get yours at <a
+                    href="https://console.groq.com/keys" target="_blank"
+                    style="color: var(--accent);">console.groq.com</a></small>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 14px;">
               <label for="customPrompt">Custom System Instructions</label>
               <textarea id="customPrompt" rows="4"
                 placeholder="e.g., Always start the comment with a rhetorical question..."></textarea>
@@ -110,6 +149,7 @@
           </div>
         </div>
       </div>
+
 
       <!-- Analytics Tab -->
       <div id="analytics-tab" class="tab-content">
@@ -130,7 +170,8 @@
             <div class="stat-label">Most Used Tone</div>
           </div>
         </div>
-        <button id="resetAnalyticsBtn" class="btn" style="background-color: transparent; border: 1px solid var(--border); color: var(--text-secondary); width: 100%; margin-top: 24px;">
+        <button id="resetAnalyticsBtn" class="btn"
+          style="background-color: transparent; border: 1px solid var(--border); color: var(--text-secondary); width: 100%; margin-top: 24px;">
           Reset Analytics Data
         </button>
       </div>
@@ -157,18 +198,24 @@
             <div class="style-progress-bar-track">
               <div class="style-progress-bar-fill" id="styleProgressFill" style="width: 0%"></div>
             </div>
-            <p class="style-hint" id="styleHint">Post a few comments on LinkedIn and the AI will start learning your style.</p>
+            <p class="style-hint" id="styleHint">Post a few comments on LinkedIn and the AI will start learning your
+              style.</p>
           </div>
 
           <div id="voiceSignatureContainer" class="voice-signature-box hidden" style="display: none;">
             <div class="voice-signature-header">
               <span class="voice-signature-title">✨ Voice signature (auto-applied)</span>
-              <button id="regenerateSignatureBtn" class="btn-icon" title="Regenerate Voice Signature" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);">🔄</button>
+              <button id="regenerateSignatureBtn" class="btn-icon" title="Regenerate Voice Signature"
+                style="background:none;border:none;cursor:pointer;color:var(--text-secondary);">🔄</button>
             </div>
             <p id="voiceSignatureText" class="voice-signature-text"></p>
             <div id="voiceSignatureLoader" class="voice-signature-loader hidden" style="display: none;">
-              <div class="shimmer-line" style="height: 12px; width: 90%; background: rgba(255,255,255,0.1); border-radius: 4px; margin-bottom: 6px; animation: pulse 1.5s infinite;"></div>
-              <div class="shimmer-line" style="height: 12px; width: 60%; background: rgba(255,255,255,0.1); border-radius: 4px; animation: pulse 1.5s infinite;"></div>
+              <div class="shimmer-line"
+                style="height: 12px; width: 90%; background: rgba(255,255,255,0.1); border-radius: 4px; margin-bottom: 6px; animation: pulse 1.5s infinite;">
+              </div>
+              <div class="shimmer-line"
+                style="height: 12px; width: 60%; background: rgba(255,255,255,0.1); border-radius: 4px; animation: pulse 1.5s infinite;">
+              </div>
             </div>
           </div>
 
@@ -189,15 +236,20 @@
             <button id="syncCommentsBtn" class="btn btn-primary" style="flex: 1;">
               🔄 Auto-Sync
             </button>
-            <button id="clearStyleBtn" class="btn" style="background: transparent; border: 1px solid #ef4444; color: #f87171; flex: 1;">
+            <button id="clearStyleBtn" class="btn"
+              style="background: transparent; border: 1px solid #ef4444; color: #f87171; flex: 1;">
               🗑️ Clear Data
             </button>
           </div>
 
-          <details class="advanced-settings" style="margin-top: 15px; border-top: 1px solid var(--border); padding-top: 10px;">
+          <details class="advanced-settings"
+            style="margin-top: 15px; border-top: 1px solid var(--border); padding-top: 10px;">
             <summary style="font-weight: 500; color: var(--text-secondary);">Or Manual Import (Foolproof)</summary>
-            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 10px;">Paste 3-5 of your best past comments below (each on a new line) and hit Save. This is 100% reliable.</p>
-            <textarea id="manualCommentsTextarea" rows="5" placeholder="Paste your comment here...&#10;Paste another comment here...&#10;Paste a third comment here..." style="width: 100%; margin-top: 10px; padding: 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface-light); color: var(--text); resize: vertical;"></textarea>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 10px;">Paste 3-5 of your best past
+              comments below (each on a new line) and hit Save. This is 100% reliable.</p>
+            <textarea id="manualCommentsTextarea" rows="5"
+              placeholder="Paste your comment here...&#10;Paste another comment here...&#10;Paste a third comment here..."
+              style="width: 100%; margin-top: 10px; padding: 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface-light); color: var(--text); resize: vertical;"></textarea>
             <button id="saveManualCommentsBtn" class="btn btn-primary" style="margin-top: 10px; width: 100%;">
               Save Manual Comments
             </button>

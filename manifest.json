@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Commento ",
+  "name": "Commento",
   "version": "1.0",
-  "description": "Analyze any LinkedIn post and get personalized comment suggestions based on your role, industry, and communication style.",
+  "description": "Analyze any LinkedIn post and get personalized comment suggestions based on your Designation.",
   "permissions": [
     "storage",
     "tabs",

@@ -978,7 +978,7 @@ ${toneStrategy}
 - ROLE ALIGNMENT: Strongly maintain the user's specified designation and market context in how the comment is framed.
 - NEVER start with generic filler like "Great post!" or "I completely agree!". Dive straight into your specific insight or perspective.
 - Reference specific points from the post — do not be vague or generic.
-- Whenever possible, seamlessly drop a specific real-world company example from your knowledge (e.g. 'This reminds me of how companies like [Company Name] handled this...').
+- Whenever possible, seamlessly drop a specific real-world, ACTIVE company example from your knowledge (e.g. 'This reminds me of how companies like [Company Name] handled this...'). Do NOT use closed, bankrupt, or defunct companies (e.g. Byju's).
 - BANNED AI WORDS: "kudos", "delighted", "deep dive", "game-changer", "spot on", "essential read", "couldn't agree more", "revolutionary", "insightful", "valuable perspective", "unleash", "elevate", "in today's rapidly evolving", "navigating".
 - The final output MUST look like a genuine, manually typed professional comment.
 - Market knowledge must be updated to the current date: June 2026.
@@ -993,7 +993,7 @@ OUTPUT FORMAT — Return ONLY valid JSON with exactly 3 keys:
 
 All 3 variations MUST follow the same strategy but use different angles, opening lines, or references.`;
 
-  const userPromptHook = addHook ? '\n\nCRITICAL REQUIREMENT: Instead of generating a full comment, you MUST output ONLY a standalone, thought-provoking question or hook that practically forces the original poster to reply. Do NOT output any filler or agreements. JUST the question. Furthermore, EVERY SINGLE variation MUST be framed around a specific, real-world company example from the target market.' : '';
+  const userPromptHook = addHook ? '\n\nCRITICAL REQUIREMENT: Instead of generating a full comment, you MUST output ONLY a standalone, thought-provoking question or hook that practically forces the original poster to reply. Do NOT output any filler or agreements. JUST the question. Furthermore, EVERY SINGLE variation MUST be framed around a specific, real-world, ACTIVE company example from the target market (never use closed or bankrupt companies like Byju\'s).' : '';
   const userPrompt = `Generate 3 comment variations for this LinkedIn ${contextType === 'reply' ? 'comment' : 'post'}:\n\n"""\n${postText.substring(0, 3000)}\n"""${userPromptHook}`;
 
   const errors = [];

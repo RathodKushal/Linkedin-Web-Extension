@@ -884,7 +884,18 @@ function renderLoadingState(panelWrapper) {
     <div class="ln-ai-suggestions-panel">
       <div class="ln-ai-panel-header">
         <div class="ln-ai-header-title">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-3.5-9c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm7 0c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8s-1.5 8.67-1.5 1.5.67 1.5 1.5 1.5zm-5 5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="15 15 240 155" width="28" height="20">
+            <defs>
+              <linearGradient id="infynno-grad-loading" x1="15" y1="0" x2="255" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#8B35E8"/>
+                <stop offset="50%" stop-color="#5545DC"/>
+                <stop offset="100%" stop-color="#1E40C8"/>
+              </linearGradient>
+            </defs>
+            <path d="M 200,45 L 70,145 A 35 35 0 0 1 35 110 L 35,80 A 35 35 0 0 1 70,45 L 200,145 A 35 35 0 0 0 235 110 L 235,70"
+                  fill="none" stroke="url(#infynno-grad-loading)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="235" cy="35" r="12" fill="#1E40C8"/>
+          </svg>
           <span>Generating precise AI comments...</span>
         </div>
         <button class="ln-ai-close-btn" title="Close">&times;</button>
@@ -918,7 +929,18 @@ function renderApiKeyWarning(panelWrapper) {
     <div class="ln-ai-suggestions-panel">
       <div class="ln-ai-panel-header">
         <div class="ln-ai-header-title">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-3.5-9c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm7 0c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8s-1.5 8.67-1.5 1.5.67 1.5 1.5 1.5zm-5 5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="15 15 240 155" width="28" height="20">
+            <defs>
+              <linearGradient id="infynno-grad-apikey" x1="15" y1="0" x2="255" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#8B35E8"/>
+                <stop offset="50%" stop-color="#5545DC"/>
+                <stop offset="100%" stop-color="#1E40C8"/>
+              </linearGradient>
+            </defs>
+            <path d="M 200,45 L 70,145 A 35 35 0 0 1 35 110 L 35,80 A 35 35 0 0 1 70,45 L 200,145 A 35 35 0 0 0 235 110 L 235,70"
+                  fill="none" stroke="url(#infynno-grad-apikey)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="235" cy="35" r="12" fill="#1E40C8"/>
+          </svg>
           <span>API Key Required</span>
         </div>
         <button class="ln-ai-close-btn" title="Close">&times;</button>
@@ -965,7 +987,18 @@ function renderError(panelWrapper, message) {
     <div class="ln-ai-suggestions-panel">
       <div class="ln-ai-panel-header">
         <div class="ln-ai-header-title">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-3.5-9c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm7 0c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8s-1.5 8.67-1.5 1.5.67 1.5 1.5 1.5zm-5 5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="15 15 240 155" width="28" height="20">
+            <defs>
+              <linearGradient id="infynno-grad-error" x1="15" y1="0" x2="255" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#8B35E8"/>
+                <stop offset="50%" stop-color="#5545DC"/>
+                <stop offset="100%" stop-color="#1E40C8"/>
+              </linearGradient>
+            </defs>
+            <path d="M 200,45 L 70,145 A 35 35 0 0 1 35 110 L 35,80 A 35 35 0 0 1 70,45 L 200,145 A 35 35 0 0 0 235 110 L 235,70"
+                  fill="none" stroke="url(#infynno-grad-error)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="235" cy="35" r="12" fill="#1E40C8"/>
+          </svg>
           <span>Generation Error</span>
         </div>
         <button class="ln-ai-close-btn" title="Close">&times;</button>
@@ -993,7 +1026,18 @@ function renderSuggestions(panelWrapper, suggestions, editor) {
     <div class="ln-ai-suggestions-panel">
       <div class="ln-ai-panel-header">
         <div class="ln-ai-header-title">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-3.5-9c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm7 0c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8s-1.5 8.67-1.5 1.5.67 1.5 1.5 1.5zm-5 5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="15 15 240 155" width="28" height="20">
+            <defs>
+              <linearGradient id="infynno-grad-suggestions" x1="15" y1="0" x2="255" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#8B35E8"/>
+                <stop offset="50%" stop-color="#5545DC"/>
+                <stop offset="100%" stop-color="#1E40C8"/>
+              </linearGradient>
+            </defs>
+            <path d="M 200,45 L 70,145 A 35 35 0 0 1 35 110 L 35,80 A 35 35 0 0 1 70,45 L 200,145 A 35 35 0 0 0 235 110 L 235,70"
+                  fill="none" stroke="url(#infynno-grad-suggestions)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="235" cy="35" r="12" fill="#1E40C8"/>
+          </svg>
           <span>Suggested Comments (Click to Use)</span>
         </div>
         <button class="ln-ai-close-btn" title="Close">&times;</button>
@@ -1223,8 +1267,17 @@ function injectAIComponents(commentBox, editor, options = { isReplyMode: false }
   } else {
     triggerBtn.className = 'ln-ai-trigger-btn';
     triggerBtn.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-3.5-9c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm7 0c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8s-1.5 8.67-1.5 1.5.67 1.5 1.5 1.5zm-5 5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="15 15 240 155" width="26" height="18">
+        <defs>
+          <linearGradient id="infynno-grad-trigger" x1="15" y1="0" x2="255" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#8B35E8"/>
+            <stop offset="50%" stop-color="#5545DC"/>
+            <stop offset="100%" stop-color="#1E40C8"/>
+          </linearGradient>
+        </defs>
+        <path d="M 200,45 L 70,145 A 35 35 0 0 1 35 110 L 35,80 A 35 35 0 0 1 70,45 L 200,145 A 35 35 0 0 0 235 110 L 235,70"
+              fill="none" stroke="url(#infynno-grad-trigger)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="235" cy="35" r="12" fill="#1E40C8"/>
       </svg>
     `;
     triggerBtn.title = "Generate AI Comment";

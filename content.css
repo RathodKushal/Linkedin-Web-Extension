@@ -11,31 +11,27 @@
   gap: 8px;
 }
 
-/* 1. Smile Trigger Button */
+/* 1. Infynno Trigger Button */
 .ln-ai-trigger-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
-  color: #38bdf8;
+  width: 34px;
+  height: 26px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  padding: 0;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 3px;
   margin-left: 8px;
   position: relative;
 }
 
 .ln-ai-trigger-btn:hover {
-  transform: translateY(-2px) scale(1.05);
-  border-color: #38bdf8;
-  color: #ffffff;
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5), 0 4px 8px rgba(0, 0, 0, 0.15);
-  background: linear-gradient(135deg, #38bdf8 0%, #3b82f6 100%);
+  transform: translateY(-2px) scale(1.08);
+  background: rgba(124, 58, 237, 0.08);
+  border-radius: 8px;
 }
 
 .ln-ai-trigger-btn:active {
@@ -43,14 +39,13 @@
 }
 
 .ln-ai-trigger-btn svg {
-  width: 16px;
-  height: 16px;
-  fill: currentColor;
+  width: 26px;
+  height: 18px;
   transition: transform 0.25s ease;
 }
 
 .ln-ai-trigger-btn:hover svg {
-  transform: rotate(15deg);
+  transform: scale(1.05);
 }
 
 /* Tooltip */
@@ -192,9 +187,8 @@
 }
 
 .ln-ai-header-title svg {
-  width: 16px;
-  height: 16px;
-  fill: currentColor;
+  width: 28px;
+  height: 20px;
 }
 
 .ln-ai-close-btn {
